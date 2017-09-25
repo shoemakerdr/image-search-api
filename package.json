@@ -1,0 +1,34 @@
+{
+  "name": "image-search-api",
+  "version": "1.0.0",
+  "description": "abstraction layer over google image search",
+  "main": "index.js",
+  "dependencies": {
+    "@std/esm": "^0.11.0",
+    "axios": "^0.16.2",
+    "express": "^4.15.5",
+    "mongodb": "^2.2.31"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  },
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shoemakerdr/image-search-api.git"
+  },
+  "keywords": [
+    "image search",
+    "freecodecamp"
+  ],
+  "author": "Derek Shoemaker",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shoemakerdr/image-search-api/issues"
+  },
+  "homepage": "https://github.com/shoemakerdr/image-search-api#readme"
+}
