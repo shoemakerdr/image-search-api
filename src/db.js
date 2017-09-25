@@ -1,75 +1,44 @@
-const MongoClient = require('mongodb').MongoClient
-const databaseURL = process.env.MLAB_URI || require('./dburl')
+import { MongoClient } from 'mongodb'
+const databaseURL = process.env.MLAB_URI
 
-const randomHex = () => {
-    const rand = Math.ceil(Math.random() * 1000000)
-    return Number(rand).toString(16)
+const dbError = {
+            error: {
+                code: 503,
+                message: 'There was an issue with the database.'
+            }
+        }
+
+const getLatest = handler => {
+    handler(dbError)
+    // MongoClient.connect(databaseURL, (err, db) => {
+    //     if (err) {
+    //         console.error(err)
+    //         handler(dbError)
+    //     }
+        
+    //     console.log('MongoClient connected.')
+        
+    //     const latest = db.collection('latest')
+        
+    //     latest.updateOne().then(handler).catch(() => handler(dbError))
+
+    // })
 }
 
-const withHttpUrl = url => {
-    const rgx = new RegExp(/(https?:\/\/)/)
-    return rgx.test(url) ? url : `http://${url}` 
-}
-
-const findOrInsertURL = (url, res) => {
+const updateLatest = (term, timestamp) => {
     MongoClient.connect(databaseURL, (err, db) => {
         if (err) return console.error(err)
-
+        
         console.log('MongoClient connected.')
+        
+        // FORMAT: {"term":"lolcats funny","when":"2017-09-25T20:20:15.226Z"}
+        
+        const latest = db.collection('latest')
 
-        const urls = db.collection('urls')
-
-        urls.findOne({
-            original_url: url
-        }, {fields: {
-            _id: 0,
-            original_url: 1,
-            short_url: 1
-        }}).then(doc => {
-            if (doc === null) {
-                const hex = randomHex()
-                const urlDoc = {original_url: url, short_url: hex}
-                urls.insertOne(Object.assign({}, urlDoc))
-                    .then(result => {
-                        console.log('inserted new url')
-                        console.log(urlDoc)
-                        res.json(urlDoc)
-                        db.close()
-                    }).catch(console.error)
-            }
-            else {
-                console.log('found url')
-                res.json(doc)
-            }
-            db.close()
-        }).catch(console.error)
     })
 }
 
-const findShortened = (shortened, res) => {
-    MongoClient.connect(databaseURL, (err, db) => {
-        if (err) return console.error(err)
-
-        console.log('MongoClient connected.')
-
-        const urls = db.collection('urls')
-
-        urls.findOne({ short_url: shortened }, {fields: {_id: 0, original_url: 1}})
-            .then(doc => {
-                if (doc === null) {
-                    console.log('shortened url not found')
-                    res.error()
-                }
-                else {
-                    console.log(`shortened found-- URL is ${doc.original_url}`)
-                    res.redirectTo(withHttpUrl(doc.original_url))
-                }
-                db.close()
-            }).catch(console.error)
-    })
-}
-
-module.exports = {
-    findOrInsertURL,
-    findShortened
+export {
+    getLatest,
+    updateLatest
 }
