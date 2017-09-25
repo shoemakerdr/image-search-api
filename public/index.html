@@ -9,27 +9,29 @@
         <h1>Image Search Abstraction Layer</h1>
         <p>
         This project is from FreeCodeCamp's Back End Certification
-        curriculum. It takes a valid url and returns a JSON object
-        with the original url and a hex string that
-        represents a shortened version of the url. When you pass
-        a valid hex (one that already exists in the database), the
-        app will redirect you to the associated original url.
+        curriculum.
         </p>
         <div>
             <h3>Example Usage</h3>
-            <code>https://SOMETHING.herokuapp.com/google.com</code>
+            <p>You can give a plain search string</p>
+            <code>https://SOMETHING.herokuapp.com/api/imagesearch/cinnamon%20rolls</code>
+            <p>You can also provide a query string to offset for pages numbers</p>
+            <code>https://SOMETHING.herokuapp.com/api/imagesearch/cinnamon%20rolls?offset=3</code>
+            <p>You can also get the last 10 searches</p>
+            <code>https://SOMETHING.herokuapp.com/api/latest</code>
             <h3>Example Output</h3>
             <code>NOT READY YET</code>
         </div>
         <div>
             <input id='input' class='input' type='text' name='searchquery' placeholder='Search...'>
-            <button id='button' class='button'>Try this API</button>
+            <button id='tryAPI' class='button'>Try this API</button>
         </div>
         <div>
             <h3>Most Recent Searches:</h3>
             <ol>
                 <li>NOT READY YET</li>
             </ol>
+            <button id='getLatest' class='button'>Get Most Recent as JSON</button>
         </div>
         <footer>
             <p class='footer-text'>Created by <a href='https://github.com/shoemakerdr' target='_blank'>Derek Shoemaker</a></p>
@@ -37,17 +39,18 @@
         <script>
             //const url = 'http://SOMETHING.herokuapp.com/api'
             const url = 'http://localhost:8000/api'
-            const button = document.getElementById('button')
+            const tryAPI = document.getElementById('tryAPI')
             const input = document.getElementById('input')
-            const tryOutHandler = () => {window.open(`${url}/imagesearch/${input.value}`, '_blank')}
-            button.addEventListener('click', tryOutHandler)
-            input.addEventListener('keypress', (event) => {
-                if (event.keyCode === 13) {
-                    tryOutHandler()
-                    return false;
-                }
-                return false;
-            })
+            const getLatest = document.getElementById('getLatest')
+            // const tryOutHandler = () => {window.open(`${url}/imagesearch/${input.value}`, '_blank')}
+            // button.addEventListener('click', tryOutHandler)
+            // input.addEventListener('keypress', (event) => {
+            //     if (event.keyCode === 13) {
+            //         tryOutHandler()
+            //         return false;
+            //     }
+            //     return false;
+            // })
         </script>
     </body>
 </html>
