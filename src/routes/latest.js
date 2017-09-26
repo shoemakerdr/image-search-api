@@ -4,8 +4,7 @@ import { getLatest } from '../db'
 const router = Router()
 
 router.get('/', (req, res) => {
-    // res.json({response: 'Some response'})
-    getLatest(res.json)
+    getLatest(res)
 })
 
 export default router
