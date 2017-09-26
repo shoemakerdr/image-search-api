@@ -43,7 +43,7 @@ class ImageFetch {
     
     fetchImages () {
         const timestamp = new Date().toISOString()
-        // this.updateDb(this.search, timestamp)
+        this.updateDb(this.search, timestamp)
         return axios.get(`${URL}?q=${this.search}&cx=${CTX}&searchType=image&start=${this.query}&key=${API_KEY}`)
             .then(res => res.data.items)
             .then(this.formatResults)
