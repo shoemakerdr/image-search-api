@@ -1,4 +1,4 @@
-import { updateLatest } from './db'
+import { updateLatest } from './db_async_await'
 import axios from 'axios'
 
 const API_KEY = process.env.API_KEY
