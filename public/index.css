@@ -14,12 +14,26 @@ code {
 }
 
 .button {
+    display: block;
     background-color: white;
     border: .15em solid black;
+    margin-bottom: 1em;
     border-radius: 0;
     padding: .5em 1em;
     font-size: .8em;
     transition: color .5s, background-color .5s;
+}
+
+.warning {
+    color: rgba(255,0,0,1);
+    display: inline;
+    transition: color .5s;
+}
+
+.hidden {
+    color: rgba(255,0,0,0);
+    display: inline;
+    transition: color 1s;
 }
 
 .button:hover {
@@ -29,7 +43,6 @@ code {
 
 .input {
     margin: 1em 0 1em 0;
-    display: block;
     font-size: 1em;
     padding: 4px;
 }
