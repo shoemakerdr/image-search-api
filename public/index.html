@@ -14,43 +14,68 @@
         <div>
             <h3>Example Usage</h3>
             <p>You can give a plain search string</p>
-            <code>https://SOMETHING.herokuapp.com/api/imagesearch/cinnamon%20rolls</code>
+            <code>https://serene-gorge-51237.herokuapp.com/api/imagesearch/cinnamon%20rolls</code>
             <p>You can also provide a query string to offset for pages numbers</p>
-            <code>https://SOMETHING.herokuapp.com/api/imagesearch/cinnamon%20rolls?offset=3</code>
+            <code>https://serene-gorge-51237.herokuapp.com/api/imagesearch/cinnamon%20rolls?offset=3</code>
             <p>You can also get the last 10 searches</p>
-            <code>https://SOMETHING.herokuapp.com/api/latest</code>
+            <code>https://serene-gorge-51237.herokuapp.com/api/latest</code>
             <h3>Example Output</h3>
-            <code>NOT READY YET</code>
+            <code>
+                [
+                {
+                "url": "http://food.fnr.sndimg.com/content/dam/images/food/fullset/2011/11/23/0/FN_cinnamon-011_s4x3.jpg.rend.hgtvcom.616.462.suffix/1371602791835.jpeg",
+                "snippet": "Overnight Cinnamon Rolls Recipe | Alton Brown | Food Network",
+                "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8h4DK6EtG85MB9zERHAjKklJXNwYpBC6IVU3rIBecUJkdKzTxj9DvkD0",
+                "context": "http://www.foodnetwork.com/recipes/alton-brown/overnight-cinnamon-rolls-recipe-2014250"
+                },
+                {
+                "url": "http://1.bp.blogspot.com/_adqgYPWOgWA/SVAxvItCuyI/AAAAAAAACNc/AH6o3Su1aNs/s400/IMG_2397.JPG",
+                "snippet": "Cinnamon Roll Recipe | Two Peas & Their Pod",
+                "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTODX63FIvIK5R9zJweuZ2IQBZj3tHu6IkqoSS338qq96ZVxIaYUElgUyc",
+                "context": "https://www.twopeasandtheirpod.com/recipe-for-cinnamon-rolls/"
+                }...
+            </code>
         </div>
         <div>
             <input id='input' class='input' type='text' name='searchquery' placeholder='Search...'>
-            <button id='tryAPI' class='button'>Try this API</button>
-        </div>
-        <div>
-            <h3>Most Recent Searches:</h3>
-            <ol>
-                <li>NOT READY YET</li>
-            </ol>
-            <button id='getLatest' class='button'>Get Most Recent as JSON</button>
+            <div class='hidden' id='warning'>Please enter search query</div>
+            <button id='tryAPI' class='button'>Search with this API</button>
+            <button id='getLatest' class='button'>Get Most Recent Searches</button>
         </div>
         <footer>
             <p class='footer-text'>Created by <a href='https://github.com/shoemakerdr' target='_blank'>Derek Shoemaker</a></p>
         </footer>
         <script>
-            //const url = 'http://SOMETHING.herokuapp.com/api'
-            const url = 'http://localhost:8000/api'
-            const tryAPI = document.getElementById('tryAPI')
+            const url = 'https://serene-gorge-51237.herokuapp.com/api'
             const input = document.getElementById('input')
+            const tryAPI = document.getElementById('tryAPI')
             const getLatest = document.getElementById('getLatest')
-            // const tryOutHandler = () => {window.open(`${url}/imagesearch/${input.value}`, '_blank')}
-            // button.addEventListener('click', tryOutHandler)
-            // input.addEventListener('keypress', (event) => {
-            //     if (event.keyCode === 13) {
-            //         tryOutHandler()
-            //         return false;
-            //     }
-            //     return false;
-            // })
+            const warning = document.getElementById('warning')
+            const showWarning = () => {
+                warning.style.display = 'inline'
+                warning.classList.remove('hidden')
+                warning.classList.add('warning')
+                const id = setTimeout(() => {
+                    warning.classList.remove('warning')
+                    warning.classList.add('hidden')
+
+                }, 2500)
+            }
+            const tryOutHandler = () => {
+                if (input.value.length > 0)
+                    window.open(`${url}/imagesearch/${input.value}`, '_blank')
+                else showWarning()
+            }
+            const getLatestHandler = () => {window.open(`${url}/latest`, '_blank')}
+            tryAPI.addEventListener('click', tryOutHandler)
+            getLatest.addEventListener('click', getLatestHandler)
+            input.addEventListener('keypress', (event) => {
+                if (event.keyCode === 13) {
+                    tryOutHandler()
+                    return false;
+                }
+                return false;
+            })
         </script>
     </body>
 </html>
