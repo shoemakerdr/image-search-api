@@ -11,4 +11,12 @@ router.get('/:search', (req, res) => {
     .then(data => res.json(data))
 })
 
+router.get('/', (req,res) => {
+    const noSearchSpecified = {
+        error: 'No search term specified', 
+        message: 'Please specify a search term in your request'
+    }
+    res.json(noSearchSpecified)
+})
+
 export default router
