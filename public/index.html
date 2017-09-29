@@ -70,10 +70,11 @@
             tryAPI.addEventListener('click', tryOutHandler)
             getLatest.addEventListener('click', getLatestHandler)
             input.addEventListener('keypress', (event) => {
-                if (event.keyCode === 13) {
+                if (event.keyCode === 13 && input.value.length > 0) {
                     tryOutHandler()
                     return false;
                 }
+                showWarning()
                 return false;
             })
         </script>
