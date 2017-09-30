@@ -1,9 +1,5 @@
 // for .env vars
-try {
-    require('dotenv').config()
-} catch (err) {
-    console.log(err)
-}
+require('dotenv').config()
 // enable @std/esm loader
-require = require('@std/esm')(module, { cjs: true, esm: "js" })
+require = require('@std/esm')(module, { cjs: true, esm: 'js' })
 module.exports = require('./main.js').default
