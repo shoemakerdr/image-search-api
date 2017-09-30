@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { getLatest } from '../db_async_await'
+import { getLatest } from '../db'
 
 const router = Router()
 
