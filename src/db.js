@@ -8,13 +8,13 @@ const dbError = {
     }
 }
 
-const getLatest = async handler => {
+const getLatest = async (handler) => {
     try {
         const db = await MongoClient.connect(databaseURL)
         const imageArray = await db.collection('images')
-                                    .find({}, {fields: {_id: 0}})
-                                    .sort({when: -1})
-                                    .toArray()
+            .find({}, {fields: {_id: 0}})
+            .sort({when: -1})
+            .toArray()
         handler(imageArray.slice(0, 10))
         db.close()
     } catch (err) {
@@ -27,7 +27,7 @@ const updateLatest = async (term, timestamp) => {
         const doc = {term: term, when: timestamp}
         const db = await MongoClient.connect(databaseURL)
         await db.collection('images')
-                .findOneAndReplace({}, doc, {sort: {when: 1}})
+            .findOneAndReplace({}, doc, {sort: {when: 1}})
         db.close()
     } catch (err) {
         console.error(err)
